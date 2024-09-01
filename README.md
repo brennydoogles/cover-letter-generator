@@ -1,5 +1,7 @@
 # Cover Letter Generator
+
 An Electron App for quickly generating company-tailored cover letters from configurable templates
+
 ## Project Setup
 
 ### Install

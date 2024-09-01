@@ -5,25 +5,25 @@ import SkillManagerView from '../views/SkillManagerView.vue'
 import AboutView from '../views/AboutView.vue'
 
 const router = createRouter({
-  history: createWebHashHistory(import.meta.env.BASE_URL),
-  routes: [
-    {
-      path: '/',
-      component: HomeView
-    },
-    {
-      path: '/templates',
-      component: TemplateEditorView
-    },
-    {
-      path: '/skills',
-      component: SkillManagerView
-    },
-    {
-      path: '/about',
-      component: AboutView
-    }
-  ]
+	history: createWebHashHistory(import.meta.env.BASE_URL),
+	routes: [
+		{
+			path: '/',
+			component: HomeView
+		},
+		{
+			path: '/templates',
+			component: TemplateEditorView
+		},
+		{
+			path: '/skills',
+			component: SkillManagerView
+		},
+		{
+			path: '/about',
+			component: AboutView
+		}
+	]
 })
 
 export default router
