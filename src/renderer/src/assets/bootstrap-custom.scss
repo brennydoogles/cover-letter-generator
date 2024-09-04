@@ -8,3 +8,8 @@
 .vh-85 {
 	height: 80vh;
 }
+
+.primary-bordered {
+	border: $primary solid 1px;
+	border-radius: 15px;
+}

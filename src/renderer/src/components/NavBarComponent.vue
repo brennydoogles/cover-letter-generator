@@ -14,11 +14,6 @@
 						</RouterLink>
 					</li>
 					<li class="nav-item">
-						<RouterLink to="/skills" class="nav-link" active-class="active">
-							Skill Editor
-						</RouterLink>
-					</li>
-					<li class="nav-item">
 						<RouterLink to="/about" class="nav-link" active-class="active">
 							About Cover Letter Generator
 						</RouterLink>

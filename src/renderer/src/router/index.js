@@ -16,10 +16,6 @@ const router = createRouter({
 			component: TemplateEditorView
 		},
 		{
-			path: '/skills',
-			component: SkillManagerView
-		},
-		{
 			path: '/about',
 			component: AboutView
 		}

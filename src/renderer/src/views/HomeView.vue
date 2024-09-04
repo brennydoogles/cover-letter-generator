@@ -1,23 +1,40 @@
 <script setup>
 import { computed, ref } from 'vue'
+import templateService from '../service/templateService'
 
 const companyName = ref('')
 const jobTitle = ref('')
 const letterContent = computed(() => {
-	if (companyName.value && jobTitle.value) {
-		return `${companyName.value} - ${jobTitle.value}`
-	}
-	return ''
+	const template = "{{jobTitle}} at {{companyName}}"
+	const params = [
+		{
+			key: 'jobTitle',
+			isSelected: Boolean(jobTitle.value),
+			text: jobTitle.value
+		},
+		{
+			key: 'companyName',
+			isSelected: Boolean(companyName.value),
+			text: companyName.value
+		}
+	]
+	return templateService.render(template, params)
 })
 </script>
 
 <template>
-	<div id="home-view-content" class="row pt-4">
+	<div id="home-view-content" class="row p-1 pt-4">
 		<div class="col">
 			<div class="row">
 				<div class="col"><h1>Generate Cover Letter</h1></div>
 			</div>
-			<div class="row">
+			<div class="row ">
+				<div id="options-column" class="col-4 primary-bordered">
+					<div class="row pt-2">
+						<div class="col"><h2 class="text-center">Template Options</h2></div>
+					</div>
+
+				</div>
 				<div id="letter-area" class="col">
 					<form class="row gx-3 align-items-center">
 						<div class="col-auto">
@@ -51,21 +68,7 @@ const letterContent = computed(() => {
 						</div>
 					</div>
 				</div>
-				<div id="options-column" class="col-4">
-					<div class="row pt-2">
-						<div class="col"><h2 class="text-center">Template Options</h2></div>
-					</div>
-				</div>
 			</div>
 		</div>
 	</div>
 </template>
-
-<style lang="scss">
-@import '../assets/bootstrap-custom';
-
-#options-column {
-	border: $primary solid 1px;
-	border-radius: 15px;
-}
-</style>
