@@ -1,24 +1,25 @@
 <script setup>
 import { computed, ref } from 'vue'
-import templateService from '../service/templateService'
-
+// import templateService from '../service/templateService'
+import Mustache from 'mustache'
 const companyName = ref('')
 const jobTitle = ref('')
 const letterContent = computed(() => {
-	const template = "{{jobTitle}} at {{companyName}}"
-	const params = [
-		{
-			key: 'jobTitle',
+	const template =
+		'{{#jobTitle.isSelected}}{{jobTitle.value}}{{#companyName.isSelected}} at {{/companyName.isSelected}}{{/jobTitle.isSelected}}{{#companyName.isSelected}}{{companyName.value}}{{/companyName.isSelected}}'
+
+	// const template = '{{jobTitle.value}}'
+	const params = {
+		jobTitle: {
 			isSelected: Boolean(jobTitle.value),
-			text: jobTitle.value
+			value: jobTitle.value
 		},
-		{
-			key: 'companyName',
+		companyName: {
 			isSelected: Boolean(companyName.value),
-			text: companyName.value
+			value: companyName.value
 		}
-	]
-	return templateService.render(template, params)
+	}
+	return Mustache.render(template, params)
 })
 </script>
 
@@ -28,12 +29,11 @@ const letterContent = computed(() => {
 			<div class="row">
 				<div class="col"><h1>Generate Cover Letter</h1></div>
 			</div>
-			<div class="row ">
+			<div class="row">
 				<div id="options-column" class="col-4 primary-bordered">
 					<div class="row pt-2">
 						<div class="col"><h2 class="text-center">Template Options</h2></div>
 					</div>
-
 				</div>
 				<div id="letter-area" class="col">
 					<form class="row gx-3 align-items-center">

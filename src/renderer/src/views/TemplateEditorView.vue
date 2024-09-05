@@ -1,5 +1,4 @@
 <script setup>
-
 // import { shell } from 'electron'
 
 function openLink() {
@@ -21,7 +20,6 @@ function openLink() {
 					</form>
 				</div>
 			</div>
-
 		</div>
 	</div>
 </template>
