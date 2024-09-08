@@ -18,9 +18,7 @@
 						<div class="col"><h2 class="text-center">Template Options</h2></div>
 					</div>
 				</div>
-				<div id="working-area" class="col primary-bordered">
-
-				</div>
+				<div id="working-area" class="col primary-bordered"></div>
 			</div>
 		</div>
 	</div>
