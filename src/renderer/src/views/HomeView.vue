@@ -1,15 +1,30 @@
 <script setup>
 import { computed, ref } from 'vue'
-// import templateService from '../service/templateService'
 import Mustache from 'mustache'
+import { useTemplateStore } from '../stores/template'
+import { storeToRefs } from 'pinia'
+
+const templateStore = useTemplateStore()
+const { templates } = storeToRefs(templateStore)
+const selectedTemplateKey = ref('')
+const selectedTemplate = computed(() => {
+	return templates.value[selectedTemplateKey.value]
+})
+const templateParams = ref({})
+const handleNewTemplateSelected = function () {
+	for (const section of selectedTemplate.value.sections) {
+		templateParams.value[section.key] = {
+			isSelected: section.isSelected,
+			value: section.text
+		}
+	}
+}
+
 const companyName = ref('')
 const jobTitle = ref('')
-const letterContent = computed(() => {
-	const template =
-		'{{#jobTitle.isSelected}}{{jobTitle.value}}{{#companyName.isSelected}} at {{/companyName.isSelected}}{{/jobTitle.isSelected}}{{#companyName.isSelected}}{{companyName.value}}{{/companyName.isSelected}}'
 
-	// const template = '{{jobTitle.value}}'
-	const params = {
+const globalTemplateParams = computed(() => {
+	return {
 		jobTitle: {
 			isSelected: Boolean(jobTitle.value),
 			value: jobTitle.value
@@ -18,6 +33,16 @@ const letterContent = computed(() => {
 			isSelected: Boolean(companyName.value),
 			value: companyName.value
 		}
+	}
+})
+const letterContent = computed(() => {
+	let template = ''
+	if (selectedTemplate.value) {
+		template = selectedTemplate.value['templateText']
+	}
+	const params = {
+		...globalTemplateParams.value,
+		...templateParams.value
 	}
 	return Mustache.render(template, params)
 })
@@ -32,7 +57,49 @@ const letterContent = computed(() => {
 			<div class="row">
 				<div id="options-column" class="col-4 primary-bordered">
 					<div class="row pt-2">
+						<div class="col"><h2 class="text-center">Template Selection</h2></div>
+					</div>
+					<div id="template-selection-row" class="row pt-2 align-items-center">
+						<div class="col-auto">
+							<label for="templateSelector" class="col-form-label">Select a Template</label>
+						</div>
+						<div class="col">
+							<select
+								id="templateSelector"
+								v-model="selectedTemplateKey"
+								class="form-control form-select"
+								@change="handleNewTemplateSelected"
+							>
+								<option
+									v-for="(template, index) in templates"
+									:key="template.id"
+									:value="template.id"
+									:selected="index === 0"
+								>
+									{{ template.name }}
+								</option>
+							</select>
+						</div>
+					</div>
+					<div class="row pt-4">
 						<div class="col"><h2 class="text-center">Template Options</h2></div>
+					</div>
+					<div id="template-options-row" class="row pt-2">
+						<div class="col form-check form-switch">
+							<template v-if="selectedTemplate">
+								<template v-for="section in selectedTemplate.sections" :key="section.key">
+									<input
+										:id="`${section.key}-input`"
+										v-model="templateParams[section.key].isSelected"
+										class="form-check-input"
+										type="checkbox"
+									/>
+									<label class="form-check-label" :for="`${section.key}-input`">
+										{{ section.label }}
+									</label>
+								</template>
+							</template>
+						</div>
 					</div>
 				</div>
 				<div id="letter-area" class="col">
@@ -72,3 +139,11 @@ const letterContent = computed(() => {
 		</div>
 	</div>
 </template>
+
+<style lang="scss" scoped>
+#letter-output {
+	div {
+		white-space: preserve;
+	}
+}
+</style>
