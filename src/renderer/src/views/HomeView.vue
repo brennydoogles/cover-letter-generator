@@ -1,16 +1,17 @@
 <script setup>
 import { computed, ref } from 'vue'
-import Mustache from 'mustache'
-import { useTemplateStore } from '../stores/template'
 import { storeToRefs } from 'pinia'
+import { useTemplateStore } from '../stores/template'
+import Mustache from 'mustache'
 
 const templateStore = useTemplateStore()
 const { templates } = storeToRefs(templateStore)
+
 const selectedTemplateKey = ref('')
-const selectedTemplate = computed(() => {
-	return templates.value[selectedTemplateKey.value]
-})
+const companyName = ref('')
+const jobTitle = ref('')
 const templateParams = ref({})
+
 const handleNewTemplateSelected = function () {
 	for (const section of selectedTemplate.value.sections) {
 		templateParams.value[section.key] = {
@@ -20,8 +21,9 @@ const handleNewTemplateSelected = function () {
 	}
 }
 
-const companyName = ref('')
-const jobTitle = ref('')
+const selectedTemplate = computed(() => {
+	return templates.value[selectedTemplateKey.value]
+})
 
 const globalTemplateParams = computed(() => {
 	return {
@@ -36,10 +38,10 @@ const globalTemplateParams = computed(() => {
 	}
 })
 const letterContent = computed(() => {
-	let template = ''
-	if (selectedTemplate.value) {
-		template = selectedTemplate.value['templateText']
+	if (!selectedTemplate.value) {
+		return ''
 	}
+	const template = selectedTemplate.value['templateText']
 	const params = {
 		...globalTemplateParams.value,
 		...templateParams.value

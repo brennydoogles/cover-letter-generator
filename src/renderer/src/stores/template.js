@@ -8,7 +8,6 @@ export const useTemplateStore = defineStore('template', () => {
 			name: 'Default Template',
 			templateText: `To whom it may concern,
 
-
 I am interested in joining {{companyName.value}} as a {{jobTitle.value}}. In addition to my great admiration of {{companyName.value}}'s brand, I feel my skills and experience would make me an ideal member of the {{companyName.value}} team.
 {{#managementExperience.isSelected}}
 
