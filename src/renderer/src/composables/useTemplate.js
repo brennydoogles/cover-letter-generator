@@ -18,6 +18,11 @@ export default function useTemplate() {
 		}
 	}
 
+	const updateSelectedTemplateKey = function (newKey) {
+		selectedTemplateKey.value = newKey
+		handleNewTemplateSelected()
+	}
+
 	const selectedTemplate = computed(() => {
 		return templates.value[selectedTemplateKey.value]
 	})
@@ -28,6 +33,7 @@ export default function useTemplate() {
 		selectedTemplateKey,
 		selectedTemplate,
 		templateParams,
-		handleNewTemplateSelected
+		handleNewTemplateSelected,
+		updateSelectedTemplateKey
 	}
 }

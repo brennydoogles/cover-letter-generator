@@ -2,17 +2,12 @@
 import { computed, ref } from 'vue'
 import Mustache from 'mustache'
 import useTemplate from '../composables/useTemplate'
+import TemplateSelectorComponent from '../components/TemplateSelectorComponent.vue'
 
 const companyName = ref('')
 const jobTitle = ref('')
 
-const {
-	templates,
-	selectedTemplateKey,
-	selectedTemplate,
-	templateParams,
-	handleNewTemplateSelected
-} = useTemplate()
+const { selectedTemplate, templateParams, updateSelectedTemplateKey } = useTemplate()
 
 const globalTemplateParams = computed(() => {
 	return {
@@ -50,28 +45,29 @@ const letterContent = computed(() => {
 					<div class="row pt-2">
 						<div class="col"><h2 class="text-center">Template Selection</h2></div>
 					</div>
-					<div id="template-selection-row" class="row pt-2 align-items-center">
-						<div class="col-auto">
-							<label for="templateSelector" class="col-form-label">Select a Template</label>
-						</div>
-						<div class="col">
-							<select
-								id="templateSelector"
-								v-model="selectedTemplateKey"
-								class="form-control form-select"
-								@change="handleNewTemplateSelected"
-							>
-								<option
-									v-for="(template, index) in templates"
-									:key="template.id"
-									:value="template.id"
-									:selected="index === 0"
-								>
-									{{ template.name }}
-								</option>
-							</select>
-						</div>
-					</div>
+					<TemplateSelectorComponent @selected-template-changed="updateSelectedTemplateKey" />
+					<!--					<div id="template-selection-row" class="row pt-2 align-items-center">-->
+					<!--						<div class="col-auto">-->
+					<!--							<label for="templateSelector" class="col-form-label">Select a Template</label>-->
+					<!--						</div>-->
+					<!--						<div class="col">-->
+					<!--							<select-->
+					<!--								id="templateSelector"-->
+					<!--								v-model="selectedTemplateKey"-->
+					<!--								class="form-control form-select"-->
+					<!--								@change="handleNewTemplateSelected"-->
+					<!--							>-->
+					<!--								<option-->
+					<!--									v-for="(template, index) in templates"-->
+					<!--									:key="template.id"-->
+					<!--									:value="template.id"-->
+					<!--									:selected="index === 0"-->
+					<!--								>-->
+					<!--									{{ template.name }}-->
+					<!--								</option>-->
+					<!--							</select>-->
+					<!--						</div>-->
+					<!--					</div>-->
 					<div class="row pt-4">
 						<div class="col"><h2 class="text-center">Template Options</h2></div>
 					</div>
