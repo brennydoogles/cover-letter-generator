@@ -3,6 +3,8 @@ import { computed, ref } from 'vue'
 import Mustache from 'mustache'
 import useTemplate from '../composables/useTemplate'
 import TemplateSelectorComponent from '../components/TemplateSelectorComponent.vue'
+import { useClipboard } from '@vueuse/core'
+import { Tooltip } from 'bootstrap'
 
 const companyName = ref('')
 const jobTitle = ref('')
@@ -32,6 +34,22 @@ const letterContent = computed(() => {
 	}
 	return Mustache.render(template, params)
 })
+
+const { copy, copied } = useClipboard()
+const tooltip = new Tooltip(document.body, {
+	selector: "[data-bs-toggle='tooltip']",
+	animation: true,
+	trigger: 'click'
+})
+const handleCopyButton = function () {
+	copy(letterContent.value)
+	if (copied) {
+		tooltip.show()
+		setTimeout(() => {
+			tooltip.blur()
+		}, 1500)
+	}
+}
 </script>
 
 <template>
@@ -46,28 +64,6 @@ const letterContent = computed(() => {
 						<div class="col"><h2 class="text-center">Template Selection</h2></div>
 					</div>
 					<TemplateSelectorComponent @selected-template-changed="updateSelectedTemplateKey" />
-					<!--					<div id="template-selection-row" class="row pt-2 align-items-center">-->
-					<!--						<div class="col-auto">-->
-					<!--							<label for="templateSelector" class="col-form-label">Select a Template</label>-->
-					<!--						</div>-->
-					<!--						<div class="col">-->
-					<!--							<select-->
-					<!--								id="templateSelector"-->
-					<!--								v-model="selectedTemplateKey"-->
-					<!--								class="form-control form-select"-->
-					<!--								@change="handleNewTemplateSelected"-->
-					<!--							>-->
-					<!--								<option-->
-					<!--									v-for="(template, index) in templates"-->
-					<!--									:key="template.id"-->
-					<!--									:value="template.id"-->
-					<!--									:selected="index === 0"-->
-					<!--								>-->
-					<!--									{{ template.name }}-->
-					<!--								</option>-->
-					<!--							</select>-->
-					<!--						</div>-->
-					<!--					</div>-->
 					<div class="row pt-4">
 						<div class="col"><h2 class="text-center">Template Options</h2></div>
 					</div>
@@ -114,6 +110,15 @@ const letterContent = computed(() => {
 							/>
 						</div>
 					</form>
+					<div class="row">
+						<div class="col float-end">
+							<span data-bs-toggle="tooltip" title="Copied!" data-bs-placement="bottom">
+								<button id="copy-button" class="btn btn-primary" @click="handleCopyButton">
+									<i class="bi bi-clipboard">Copy To Clipboard</i>
+								</button>
+							</span>
+						</div>
+					</div>
 					<div class="row pt-3">
 						<div class="col">
 							<div id="letter-output" class="card">
