@@ -4,8 +4,7 @@ import { useTemplateStore } from '../stores/template'
 
 export default function useTemplate() {
 	const templateStore = useTemplateStore()
-	const { templates, addTemplate } = storeToRefs(templateStore)
-
+	const { templates } = storeToRefs(templateStore)
 	const selectedTemplateKey = ref('')
 	const templateParams = ref({})
 
@@ -29,7 +28,6 @@ export default function useTemplate() {
 
 	return {
 		templates,
-		addTemplate,
 		selectedTemplateKey,
 		selectedTemplate,
 		templateParams,

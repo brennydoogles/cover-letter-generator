@@ -67,10 +67,11 @@ const handleCopyButton = function () {
 					<div class="row pt-4">
 						<div class="col"><h2 class="text-center">Template Options</h2></div>
 					</div>
-					<div id="template-options-row" class="row pt-2">
-						<div class="col form-check form-switch">
-							<template v-if="selectedTemplate">
-								<template v-for="section in selectedTemplate.sections" :key="section.key">
+
+					<template v-if="selectedTemplate">
+						<template v-for="section in selectedTemplate.sections" :key="section.key">
+							<div id="template-options-row" class="row pt-2 d-flex justify-content-center">
+								<div class="col form-check form-switch ms-5 ps-5">
 									<input
 										:id="`${section.key}-input`"
 										v-model="templateParams[section.key].isSelected"
@@ -80,10 +81,10 @@ const handleCopyButton = function () {
 									<label class="form-check-label" :for="`${section.key}-input`">
 										{{ section.label }}
 									</label>
-								</template>
-							</template>
-						</div>
-					</div>
+								</div>
+							</div>
+						</template>
+					</template>
 				</div>
 				<div id="letter-area" class="col">
 					<form class="row gx-3 align-items-center">

@@ -1,7 +1,12 @@
 <script setup>
 import useTemplate from '../composables/useTemplate'
+import { useTemplateStore } from '../stores/template'
+import { storeToRefs } from 'pinia'
 
-const { templates, selectedTemplateKey } = useTemplate()
+const templateStore = useTemplateStore()
+const { selectedTemplateKey } = useTemplate()
+const { templates } = storeToRefs(templateStore)
+
 defineEmits(['selectedTemplateChanged'])
 </script>
 

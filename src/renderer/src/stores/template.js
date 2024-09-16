@@ -26,9 +26,6 @@ Wile E. Coyote`,
 			]
 		}
 	})
-	const addTemplate = function (template) {
-		templates.value[template.id] = template
-	}
 
-	return { templates, addTemplate }
+	return { templates }
 })
