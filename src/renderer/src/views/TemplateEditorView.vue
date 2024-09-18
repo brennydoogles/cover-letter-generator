@@ -1,9 +1,4 @@
 <script setup>
-// import { shell } from 'electron'
-
-// function openLink() {
-// 	window.shell.openExternal('https://mustache.github.io/mustache.5.html')
-// }
 import TemplateSelectorComponent from '../components/TemplateSelectorComponent.vue'
 import useTemplate from '../composables/useTemplate'
 import { computed, ref, watch } from 'vue'
@@ -21,8 +16,8 @@ const newTemplate = ref({
 	templateText: '',
 	sections: []
 })
-
 const showModal = ref(false)
+
 const handleModalSubmit = function (section) {
 	newTemplate.value.sections.push(section)
 	showModal.value = false
@@ -31,6 +26,16 @@ const handleModalSubmit = function (section) {
 const handleSave = function () {
 	if (saveEnabled.value) {
 		templates.value[newTemplate.value.id] = newTemplate.value
+		clearForm()
+	}
+}
+
+function clearForm() {
+	newTemplate.value = {
+		id: '',
+		name: '',
+		templateText: '',
+		sections: []
 	}
 }
 
@@ -38,12 +43,7 @@ const handleDelete = function () {
 	if (deleteEnabled.value) {
 		// removeTemplate(selectedTemplateKey.value)
 		delete templates.value[selectedTemplateKey.value]
-		newTemplate.value = {
-			modalId: '',
-			name: '',
-			templateText: '',
-			sections: []
-		}
+		clearForm()
 	}
 }
 
@@ -68,7 +68,7 @@ watch(selectedTemplate, async () => {
 			</div>
 			<div class="row">
 				<div id="options-column" class="col-4 primary-bordered vh-85">
-					<div class="row pt-2">
+					<div class="row pt-3">
 						<div class="col"><h2 class="text-center">Template Options</h2></div>
 					</div>
 					<TemplateSelectorComponent @selected-template-changed="updateSelectedTemplateKey" />
@@ -238,7 +238,7 @@ watch(selectedTemplate, async () => {
 							</button>
 						</div>
 					</form>
-					<div class="row">
+					<div class="row pt-3">
 						<div class="col">
 							<textarea
 								id="templateTextArea"
@@ -255,11 +255,7 @@ watch(selectedTemplate, async () => {
 </template>
 
 <style scoped>
-#working-area div.card-body {
-	white-space: preserve;
-}
-
 #templateTextArea {
-	min-height: 50vh;
+	min-height: 65vh;
 }
 </style>
