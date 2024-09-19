@@ -56,7 +56,7 @@ const handleCopyButton = function () {
 	<div id="home-view-content" class="row p-1 pt-4">
 		<div class="col">
 			<div class="row">
-				<div class="col"><h1>Generate Cover Letter</h1></div>
+				<div class="col text-center"><h1>Generate Cover Letter</h1></div>
 			</div>
 			<div class="row">
 				<div id="options-column" class="col-4 primary-bordered">
@@ -86,7 +86,7 @@ const handleCopyButton = function () {
 						</template>
 					</template>
 				</div>
-				<div id="letter-area" class="col">
+				<div id="letter-area" class="col vh-85">
 					<form class="row gx-3 align-items-center">
 						<div class="col-auto">
 							<label for="company-name" class="col-form-label-lg">Company Name:</label>
@@ -123,7 +123,7 @@ const handleCopyButton = function () {
 					<div class="row pt-3">
 						<div class="col">
 							<div id="letter-output" class="card">
-								<div class="card-body vh-85">{{ letterContent }}</div>
+								<div id="letter-content" class="card-body">{{ letterContent }}</div>
 							</div>
 						</div>
 					</div>
@@ -134,6 +134,9 @@ const handleCopyButton = function () {
 </template>
 
 <style lang="scss" scoped>
+#letter-content {
+	height: 69vh;
+}
 #letter-output {
 	div {
 		white-space: preserve;

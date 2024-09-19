@@ -64,7 +64,7 @@ watch(selectedTemplate, async () => {
 	<div id="template-editor-view-content" class="row p-1 pt-4">
 		<div class="col">
 			<div class="row">
-				<div class="col"><h1>Template Editor</h1></div>
+				<div class="col text-center"><h1>Template Editor</h1></div>
 			</div>
 			<div class="row">
 				<div id="options-column" class="col-4 primary-bordered vh-85">
