@@ -2,6 +2,7 @@
 defineProps({
 	show: Boolean
 })
+defineEmits(['close', 'submit'])
 </script>
 
 <template>
@@ -19,7 +20,8 @@ defineProps({
 				<div class="modal-footer">
 					<slot name="footer">
 						default footer
-						<button class="modal-default-button" @click="$emit('close')">OK</button>
+						<button class="modal-default-button" @click="$emit('submit')">OK</button>
+						<button class="modal-default-button" @click="$emit('close')">Close</button>
 					</slot>
 				</div>
 			</div>

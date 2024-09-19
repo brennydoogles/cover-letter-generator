@@ -199,7 +199,7 @@ watch(selectedTemplate, async () => {
 					</template>
 				</div>
 				<div id="working-area" class="col vh-85">
-					<form class="row gx-3 align-items-center pb-3 pt-2">
+					<form class="row gx-3 align-items-center pb-3 pt-2" @submit.prevent>
 						<div class="col-auto">
 							<label for="templateKeyInput" class="col-form-label-lg">Template ID</label>
 						</div>
@@ -223,7 +223,7 @@ watch(selectedTemplate, async () => {
 							/>
 						</div>
 					</form>
-					<form class="row text-center justify-content-center">
+					<form class="row text-center justify-content-center" @submit.prevent>
 						<div class="col-2">
 							<button class="btn btn-secondary" @click="showModal = true">Add Section</button>
 						</div>
