@@ -2,6 +2,7 @@ import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
+import Store from '../store/store'
 
 function createWindow() {
 	// Create the browser window.
@@ -51,6 +52,49 @@ app.whenReady().then(() => {
 
 	// IPC test
 	ipcMain.on('ping', () => console.log('pong'))
+	ipcMain.on('testLog', (event, param) => {
+		console.log(param)
+	})
+	ipcMain.handle('testInvoke', async () => {
+		return 'Skibidi toilet'
+	})
+
+	let templates = {
+		default: {
+			id: 'default',
+			name: 'Default Template',
+			templateText: `To whom it may concern,
+
+I am interested in joining {{companyName.value}} as a {{jobTitle.value}}. In addition to my great admiration of {{companyName.value}}'s brand, I feel my skills and experience would make me an ideal member of the {{companyName.value}} team.
+{{#managementExperience.isSelected}}
+
+{{managementExperience.value}}
+{{/managementExperience.isSelected}}
+
+Thank you,
+Wile E. Coyote`,
+			sections: [
+				{
+					key: 'managementExperience',
+					label: 'Line Management Experience',
+					text: 'I am an experienced line manager, having managed teams for 10 years.',
+					isSelected: false
+				}
+			]
+		}
+	}
+	const store = new Store({
+		configName: 'template-store',
+		defaults: {
+			templates: templates
+		}
+	})
+	ipcMain.on('saveTemplates', (event, newTemplates) => {
+		store.set('templates', newTemplates)
+	})
+	ipcMain.handle('loadTemplates', async () => {
+		return store.get('templates')
+	})
 
 	createWindow()
 

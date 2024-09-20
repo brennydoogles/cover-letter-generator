@@ -1,5 +1,5 @@
 appId: com.electron.app
-productName: cover-letter-generator
+productName: Cover Letter Generator
 directories:
   buildResources: build
 files:

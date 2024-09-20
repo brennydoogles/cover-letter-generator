@@ -22,11 +22,14 @@ const handleModalSubmit = function (section) {
 	newTemplate.value.sections.push(section)
 	showModal.value = false
 }
-
+const persistTemplates = function () {
+	window.api.fileStore.persistTemplates(JSON.stringify(templates.value))
+}
 const handleSave = function () {
 	if (saveEnabled.value) {
 		templates.value[newTemplate.value.id] = newTemplate.value
 		clearForm()
+		persistTemplates()
 	}
 }
 
@@ -41,9 +44,9 @@ function clearForm() {
 
 const handleDelete = function () {
 	if (deleteEnabled.value) {
-		// removeTemplate(selectedTemplateKey.value)
 		delete templates.value[selectedTemplateKey.value]
 		clearForm()
+		persistTemplates()
 	}
 }
 

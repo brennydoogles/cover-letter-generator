@@ -1,5 +1,15 @@
 <script setup>
 import NavBarComponent from './components/NavBarComponent.vue'
+import { onMounted } from 'vue'
+import { useTemplateStore } from './stores/template'
+import { storeToRefs } from 'pinia'
+
+const templateStore = useTemplateStore()
+const { templates } = storeToRefs(templateStore)
+
+onMounted(async () => {
+	templates.value = await window.api.fileStore.loadTemplatesOrDefault()
+})
 </script>
 
 <template>

@@ -1,10 +1,10 @@
 {
 	"name": "cover-letter-generator",
-	"version": "1.0.0",
-	"description": "An Electron application with Vue",
+	"version": "0.9.0",
+	"description": "An Electron App for quickly generating company-tailored cover letters from configurable templates",
 	"main": "./out/main/index.js",
-	"author": "example.com",
-	"homepage": "https://electron-vite.org",
+	"author": "Brendon Dugan",
+	"homepage": "https://github.com/brennydoogles/cover-letter-generator",
 	"scripts": {
 		"format": "prettier --write .",
 		"lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",

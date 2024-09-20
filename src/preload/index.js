@@ -1,8 +1,25 @@
-import { contextBridge, shell } from 'electron'
+import { contextBridge, shell, ipcRenderer } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
 
 // Custom APIs for renderer
-const api = {}
+const api = {
+	testApi: {
+		testLogWithParam: (param) => {
+			ipcRenderer.send('testLog', param)
+		},
+		testWithReturn: () => {
+			return ipcRenderer.invoke('testInvoke')
+		}
+	},
+	fileStore: {
+		persistTemplates: (templates) => {
+			ipcRenderer.send('saveTemplates', JSON.parse(templates))
+		},
+		loadTemplatesOrDefault: () => {
+			return ipcRenderer.invoke('loadTemplates')
+		}
+	}
+}
 
 // Use `contextBridge` APIs to expose Electron APIs to
 // renderer only if context isolation is enabled, otherwise
