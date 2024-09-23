@@ -9,10 +9,12 @@ export default function useTemplate() {
 	const templateParams = ref({})
 
 	const handleNewTemplateSelected = function () {
-		for (const section of selectedTemplate.value.sections) {
-			templateParams.value[section.key] = {
-				isSelected: section.isSelected,
-				value: section.text
+		if (Object.prototype.hasOwnProperty.call(selectedTemplate.value, 'sections')) {
+			for (const section of selectedTemplate.value.sections) {
+				templateParams.value[section.key] = {
+					isSelected: section.isSelected,
+					value: section.text
+				}
 			}
 		}
 	}
@@ -23,7 +25,15 @@ export default function useTemplate() {
 	}
 
 	const selectedTemplate = computed(() => {
-		return templates.value[selectedTemplateKey.value]
+		if (Object.prototype.hasOwnProperty.call(templates.value, selectedTemplateKey.value)) {
+			return templates.value[selectedTemplateKey.value]
+		}
+		return {
+			id: '',
+			name: '',
+			templateText: '',
+			sections: []
+		}
 	})
 
 	return {
