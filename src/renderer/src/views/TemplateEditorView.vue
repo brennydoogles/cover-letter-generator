@@ -40,6 +40,7 @@ function clearForm() {
 		templateText: '',
 		sections: []
 	}
+	updateSelectedTemplateKey('')
 }
 
 const handleDelete = function () {
