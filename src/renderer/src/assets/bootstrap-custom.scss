@@ -1,15 +1,48 @@
 @import './_variables.scss';
 @import 'node_modules/bootstrap/scss/bootstrap';
 
-.vh-75 {
+.view-container {
+	@extend .row;
+	@extend .mx-2;
+}
+
+#letter-output {
+	div {
+		white-space: preserve;
+	}
+}
+
+h2,
+h3 {
+	text-align: center;
+}
+#docs-column {
+	max-height: 88vh;
+	overflow-y: scroll;
+}
+
+.left-column {
+	@extend .col-4;
+	@extend .me-3;
+
+	border: $primary solid 1px;
+	border-radius: 15px;
+	overflow-y: auto;
+}
+.right-column {
+	@extend .col;
+	div.row {
+		@extend .pt-3;
+	}
+}
+
+.letter-body {
 	height: 75vh;
 }
 
-.vh-85 {
-	height: 80vh;
-}
-
-.primary-bordered {
-	border: $primary solid 1px;
-	border-radius: 15px;
+.navbar-nav a {
+	font-weight: bold;
+	&.active {
+		color: white !important;
+	}
 }

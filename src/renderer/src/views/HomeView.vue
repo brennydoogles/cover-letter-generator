@@ -53,13 +53,13 @@ const handleCopyButton = function () {
 </script>
 
 <template>
-	<div id="home-view-content" class="row p-1 pt-4">
+	<div id="home-view-content" class="view-container">
 		<div class="col">
 			<div class="row">
 				<div class="col text-center"><h1>Generate Cover Letter</h1></div>
 			</div>
 			<div class="row">
-				<div id="options-column" class="col-4 primary-bordered">
+				<div id="options-column" class="left-column">
 					<div class="row pt-2">
 						<div class="col"><h2 class="text-center">Template Selection</h2></div>
 					</div>
@@ -86,8 +86,8 @@ const handleCopyButton = function () {
 						</template>
 					</template>
 				</div>
-				<div id="letter-area" class="col vh-85">
-					<form class="row gx-3 align-items-center">
+				<div id="letter-area" class="right-column">
+					<div class="row align-items-center">
 						<div class="col-auto">
 							<label for="company-name" class="col-form-label-lg">Company Name:</label>
 						</div>
@@ -110,20 +110,25 @@ const handleCopyButton = function () {
 								class="form-control form-control-lg"
 							/>
 						</div>
-					</form>
+					</div>
 					<div class="row">
-						<div class="col float-end">
+						<div class="col text-end">
 							<span data-bs-toggle="tooltip" title="Copied!" data-bs-placement="bottom">
-								<button id="copy-button" class="btn btn-primary" @click="handleCopyButton">
-									<i class="bi bi-clipboard">Copy To Clipboard</i>
+								<button
+									id="copy-button"
+									type="button"
+									class="btn btn-primary"
+									@click="handleCopyButton"
+								>
+									<i class="bi bi-clipboard"> Copy To Clipboard</i>
 								</button>
 							</span>
 						</div>
 					</div>
-					<div class="row pt-3">
+					<div class="row">
 						<div class="col">
 							<div id="letter-output" class="card">
-								<div id="letter-content" class="card-body">{{ letterContent }}</div>
+								<div id="letter-content" class="card-body letter-body">{{ letterContent }}</div>
 							</div>
 						</div>
 					</div>
@@ -132,14 +137,3 @@ const handleCopyButton = function () {
 		</div>
 	</div>
 </template>
-
-<style lang="scss" scoped>
-#letter-content {
-	height: 69vh;
-}
-#letter-output {
-	div {
-		white-space: preserve;
-	}
-}
-</style>
