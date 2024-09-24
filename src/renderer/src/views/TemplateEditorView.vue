@@ -65,13 +65,13 @@ watch(selectedTemplate, async () => {
 </script>
 
 <template>
-	<div id="template-editor-view-content" class="row p-1 pt-4">
+	<div id="template-editor-view-content" class="view-container">
 		<div class="col">
 			<div class="row">
 				<div class="col text-center"><h1>Template Editor</h1></div>
 			</div>
 			<div class="row">
-				<div id="options-column" class="col-4 primary-bordered vh-85">
+				<div id="options-column" class="left-column">
 					<div class="row pt-3">
 						<div class="col"><h2 class="text-center">Template Options</h2></div>
 					</div>
@@ -202,8 +202,8 @@ watch(selectedTemplate, async () => {
 						</div>
 					</template>
 				</div>
-				<div id="working-area" class="col vh-85">
-					<form class="row gx-3 align-items-center pb-3 pt-2" @submit.prevent>
+				<div id="working-area" class="right-column">
+					<div class="row align-items-center">
 						<div class="col-auto">
 							<label for="templateKeyInput" class="col-form-label-lg">Template ID</label>
 						</div>
@@ -226,28 +226,40 @@ watch(selectedTemplate, async () => {
 								class="form-control form-control-lg"
 							/>
 						</div>
-					</form>
-					<form class="row text-center justify-content-center" @submit.prevent>
+					</div>
+					<div class="row text-center justify-content-center">
 						<div class="col-2">
-							<button class="btn btn-secondary" @click="showModal = true">Add Section</button>
+							<button type="button" class="btn btn-secondary" @click="showModal = true">
+								Add Section
+							</button>
 						</div>
 						<div class="col-2">
-							<button class="btn btn-success" :disabled="!saveEnabled" @click="handleSave">
+							<button
+								type="button"
+								class="btn btn-success"
+								:disabled="!saveEnabled"
+								@click="handleSave"
+							>
 								Save Template
 							</button>
 						</div>
 						<div class="col-2">
-							<button class="btn btn-danger" :disabled="!deleteEnabled" @click="handleDelete">
+							<button
+								type="button"
+								class="btn btn-danger"
+								:disabled="!deleteEnabled"
+								@click="handleDelete"
+							>
 								Delete Template
 							</button>
 						</div>
-					</form>
-					<div class="row pt-3">
+					</div>
+					<div class="row">
 						<div class="col">
 							<textarea
 								id="templateTextArea"
 								v-model="newTemplate.templateText"
-								class="form-control"
+								class="form-control letter-body"
 							></textarea>
 						</div>
 					</div>
@@ -257,9 +269,3 @@ watch(selectedTemplate, async () => {
 		<AddSectionModal :show="showModal" @close="showModal = false" @submit="handleModalSubmit" />
 	</div>
 </template>
-
-<style scoped>
-#templateTextArea {
-	min-height: 65vh;
-}
-</style>

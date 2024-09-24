@@ -3,7 +3,7 @@ import ExternallyClickableLinkComponent from '../components/ExternallyClickableL
 </script>
 
 <template>
-	<div id="about-view-content" class="row p-1 pt-4">
+	<div id="about-view-content" class="view-container">
 		<div class="col">
 			<div class="row">
 				<div class="col text-center">
@@ -11,9 +11,9 @@ import ExternallyClickableLinkComponent from '../components/ExternallyClickableL
 				</div>
 			</div>
 			<div class="row pt-2">
-				<div id="links-column" class="col-4 primary-bordered vh-85 text-center">
-					<h1>Useful Links</h1>
-					<h2>Mustache</h2>
+				<div id="links-column" class="left-column">
+					<h2>Useful Links</h2>
+					<h3>Mustache</h3>
 					<ExternallyClickableLinkComponent url="https://mustache.github.io/mustache.5.html"
 						>Mustache Language Documentation</ExternallyClickableLinkComponent
 					>
@@ -21,7 +21,7 @@ import ExternallyClickableLinkComponent from '../components/ExternallyClickableL
 						url="https://docs.getdrafts.com/docs/actions/templates/mustache"
 						>Mustache Language Tutorial</ExternallyClickableLinkComponent
 					>
-					<h2>Cover Letter Writing</h2>
+					<h3>Cover Letter Writing</h3>
 					<ExternallyClickableLinkComponent
 						url="https://uk.indeed.com/career-advice/cvs-cover-letters/how-to-write-a-cover-letter"
 						>Indeed Cover Letter Writing Tutorial</ExternallyClickableLinkComponent
@@ -34,7 +34,7 @@ import ExternallyClickableLinkComponent from '../components/ExternallyClickableL
 						>Jeff Su Cover Letter Tutorial (Youtube)</ExternallyClickableLinkComponent
 					>
 				</div>
-				<div id="docs-column" class="col px-4">
+				<div id="docs-column" class="right-column">
 					<h2>Introduction</h2>
 					<p>
 						Cover Letter Generator is a tool designed to make the process of job searching easier by
@@ -55,8 +55,8 @@ import ExternallyClickableLinkComponent from '../components/ExternallyClickableL
 						the sections you want to enable, and then copy your cover letter for use in your job
 						application. Easy-peasy.
 					</p>
-					<h2>Writing Templates</h2>
-					<h3>Mustache Format</h3>
+					<h3>Writing Templates</h3>
+					<h4>Mustache Format</h4>
 					<p>
 						The mustache language is both powerful and easy to use, and was therefore a logical
 						choice for this application. Rather than document the entire language here, I will show
@@ -153,13 +153,3 @@ John Doe
 		</div>
 	</div>
 </template>
-
-<style lang="scss" scoped>
-h2 {
-	text-align: center;
-}
-#docs-column {
-	max-height: 80vh;
-	overflow-y: scroll;
-}
-</style>
