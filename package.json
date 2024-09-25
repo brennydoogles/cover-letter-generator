@@ -36,6 +36,7 @@
 		"electron-vite": "^2.3.0",
 		"eslint": "^8.57.0",
 		"eslint-plugin-vue": "^9.26.0",
+		"floating-vue": "^5.2.2",
 		"mustache": "^4.2.0",
 		"pinia": "^2.2.2",
 		"prettier": "^3.3.2",
