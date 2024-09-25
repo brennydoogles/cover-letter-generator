@@ -5,6 +5,7 @@ import { computed, ref, watch } from 'vue'
 import AddSectionModal from '../components/AddSectionModal.vue'
 import { useTemplateStore } from '../stores/template'
 import { storeToRefs } from 'pinia'
+import TemplateVariableSidebarItemComponent from '../components/TemplateVariableSidebarItemComponent.vue'
 
 const templateStore = useTemplateStore()
 const { templates } = storeToRefs(templateStore)
@@ -27,6 +28,7 @@ const persistTemplates = function () {
 }
 const handleSave = function () {
 	if (saveEnabled.value) {
+		delete templates.value[newTemplate.value.id]
 		templates.value[newTemplate.value.id] = newTemplate.value
 		clearForm()
 		persistTemplates()
@@ -49,6 +51,15 @@ const handleDelete = function () {
 		clearForm()
 		persistTemplates()
 	}
+}
+
+const handleSectionDelete = function (key) {
+	var tempTemplate = newTemplate.value
+	var removalIndex = tempTemplate.sections.map((section) => section.key).indexOf(key)
+	if (removalIndex >= 0) {
+		tempTemplate.sections.splice(removalIndex, 1)
+	}
+	newTemplate.value = tempTemplate
 }
 
 const deleteEnabled = computed(() => {
@@ -81,125 +92,33 @@ watch(selectedTemplate, async () => {
 							<h3 class="text-center">Global Variables</h3>
 						</div>
 					</div>
-					<div class="row">
-						<div class="col">
-							<div id="globalVarsAccordion" class="accordion">
-								<div class="accordion-item">
-									<h2 id="companyNameAccordionHeader" class="accordion-header">
-										<button
-											class="accordion-button"
-											type="button"
-											data-bs-toggle="collapse"
-											data-bs-target="#companyNameAccordionBody"
-											aria-expanded="false"
-											aria-controls="companyNameAccordionBody"
-										>
-											Company Name
-										</button>
-									</h2>
-									<div
-										id="companyNameAccordionBody"
-										class="accordion-collapse collapse"
-										aria-labelledby="companyNameAccordionHeader"
-										data-bs-parent="#globalVarsAccordion"
-									>
-										<div class="accordion-body">
-											<ul class="list-group list-group-horizontal">
-												<li class="list-group-item">isSelected</li>
-												<li v-pre class="list-group-item">{{ companyName.isSelected }}</li>
-											</ul>
-											<ul class="pt-2 list-group list-group-horizontal">
-												<li class="list-group-item">value</li>
-												<li v-pre class="list-group-item">{{ companyName.value }}</li>
-											</ul>
-										</div>
-									</div>
-								</div>
-								<div class="accordion-item">
-									<h2 id="jobTitleAccordionHeader" class="accordion-header">
-										<button
-											class="accordion-button"
-											type="button"
-											data-bs-toggle="collapse"
-											data-bs-target="#jobTitleAccordionBody"
-											aria-expanded="false"
-											aria-controls="jobTitleAccordionBody"
-										>
-											Job Title
-										</button>
-									</h2>
-									<div
-										id="jobTitleAccordionBody"
-										class="accordion-collapse collapse"
-										aria-labelledby="jobTitleAccordionHeader"
-										data-bs-parent="#globalVarsAccordion"
-									>
-										<div class="accordion-body">
-											<ul class="list-group list-group-horizontal">
-												<li class="list-group-item">isSelected</li>
-												<li v-pre class="list-group-item">{{ jobTitle.isSelected }}</li>
-											</ul>
-											<ul class="pt-2 list-group list-group-horizontal">
-												<li class="list-group-item">value</li>
-												<li v-pre class="list-group-item">{{ jobTitle.value }}</li>
-											</ul>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
+					<TemplateVariableSidebarItemComponent
+						:is-global-variable="true"
+						section-key="companyName"
+						section-label="Company Name"
+						section-text="'Name of Company'"
+					/>
+					<TemplateVariableSidebarItemComponent
+						:is-global-variable="true"
+						section-key="jobTitle"
+						section-label="Job Title"
+						section-text="'Job Title'"
+					/>
 					<template v-if="newTemplate.sections">
 						<div class="row">
 							<div class="col">
 								<h3 class="text-center">Template Variables</h3>
 							</div>
 						</div>
-						<div class="row">
-							<div class="col">
-								<div id="templateVarsAccordion" class="accordion">
-									<div
-										v-for="section in newTemplate.sections"
-										:key="section.key"
-										class="accordion-item"
-									>
-										<h2 id="`${section.key}AccordionHeader`" class="accordion-header">
-											<button
-												class="accordion-button"
-												type="button"
-												data-bs-toggle="collapse"
-												data-bs-target="#`${section.key}AccordionBody`"
-												aria-expanded="false"
-												aria-controls="`${section.key}AccordionBody`"
-											>
-												{{ section.label }}
-											</button>
-										</h2>
-										<div
-											id="`${section.key}AccordionBody`"
-											class="accordion-collapse collapse"
-											aria-labelledby="`${section.key}AccordionHeader`"
-											data-bs-parent="#templateVarsAccordion"
-										>
-											<div class="accordion-body">
-												<ul class="list-group list-group-horizontal">
-													<li class="list-group-item">isSelected</li>
-													<li class="list-group-item">
-														<span v-pre>{{</span> {{ section.key }}.isSelected <span v-pre>}}</span>
-													</li>
-												</ul>
-												<ul class="pt-2 list-group list-group-horizontal">
-													<li class="list-group-item">value</li>
-													<li class="list-group-item">
-														<span v-pre>{{</span> {{ section.key }}.value <span v-pre>}}</span>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+						<TemplateVariableSidebarItemComponent
+							v-for="section in newTemplate.sections"
+							:key="section.key"
+							:is-global-variable="false"
+							:section-key="section.key"
+							:section-label="section.label"
+							:section-text="section.text"
+							@delete="handleSectionDelete"
+						/>
 					</template>
 				</div>
 				<div id="working-area" class="right-column">

@@ -60,24 +60,28 @@ app.whenReady().then(() => {
 	})
 
 	let templates = {
-		default: {
-			id: 'default',
-			name: 'Default Template',
-			templateText: `To whom it may concern,
-
-I am interested in joining {{companyName.value}} as a {{jobTitle.value}}. In addition to my great admiration of {{companyName.value}}'s brand, I feel my skills and experience would make me an ideal member of the {{companyName.value}} team.
-{{#managementExperience.isSelected}}
-
-{{managementExperience.value}}
-{{/managementExperience.isSelected}}
-
-Thank you,
-Wile E. Coyote`,
+		example1: {
+			id: 'example1',
+			name: 'Example 1',
+			templateText:
+				'John Doe\n123 Somestreet\nBroadstairs, UK, CT10 2BF\njohndoe@email.com\n\nDear Hiring Committee,\n\nI am excited to apply for the {{ jobTitle.value }} position at {{ companyName.value }}, as advertised on your careers page. With a strong foundation in software engineering and a passion for leading teams to achieve exceptional results, I am eager to contribute to {{ companyName.value }}’s innovative projects and collaborative culture.\n\nIn my previous role at Black Mesa, I successfully led a team of software engineers in developing a scalable web application that increased user engagement by 40%. This experience honed my skills in project management, team dynamics, and agile methodologies. I prioritized fostering a culture of open communication and continuous learning, encouraging my team to share ideas and challenge the status quo. As a result, we consistently met project deadlines while maintaining high-quality code and innovative solutions.\n{{# language-list.isSelected}}\n\nThroughout my career, I have gained extensive technical expertise in {{ language-list.value }}, which has enabled me to mentor junior engineers effectively. I believe that a manager’s role extends beyond task delegation; it is about inspiring and empowering team members to reach their full potential. I am particularly drawn to {{ companyName.value }}’s commitment to innovation and collaboration—values I strive to embody in my leadership approach.\n{{/ language-list.isSelected}}\n{{# kt.isSelected}}\n\n{{ kt.value }}.   I am excited about the prospect of bringing this initiative to {{ companyName.value }}, ensuring that every team member feels valued and has opportunities to grow.\n{{/ kt.isSelected}}\n{{# ai.isSelected}}\n\nI am particularly impressed by {{ companyName.value }}’s focus on {{ ai.value }}, and I am eager to leverage my skills to contribute to such impactful work. I am confident that my background in software development, combined with my passion for team leadership, will allow me to make a meaningful contribution to your team.\n{{/ ai.isSelected}} \n\nThank you for considering my application. I look forward to the opportunity to discuss how my experience and vision align with {{ companyName.value }}’s goals. I am excited about the prospect of joining a company that is at the forefront of technology and innovation.\n\nWarm regards,\n\nJohn Doe',
 			sections: [
 				{
-					key: 'managementExperience',
-					label: 'Line Management Experience',
-					text: 'I am an experienced line manager, having managed teams for 10 years.',
+					key: 'language-list',
+					label: 'Language List',
+					text: 'Java, C#, C++, X86 Assembler, Javascript, Rust, and Whitespace',
+					isSelected: false
+				},
+				{
+					key: 'kt',
+					label: 'Knowledge Transfer',
+					text: 'At Black Mesa, I initiated a bi-weekly knowledge-sharing session that not only improved team cohesion but also enhanced our collective skills',
+					isSelected: false
+				},
+				{
+					key: 'ai',
+					label: 'AI',
+					text: 'Artificial Intelligence',
 					isSelected: false
 				}
 			]
