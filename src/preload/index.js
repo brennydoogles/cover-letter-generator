@@ -3,14 +3,6 @@ import { electronAPI } from '@electron-toolkit/preload'
 
 // Custom APIs for renderer
 const api = {
-	testApi: {
-		testLogWithParam: (param) => {
-			ipcRenderer.send('testLog', param)
-		},
-		testWithReturn: () => {
-			return ipcRenderer.invoke('testInvoke')
-		}
-	},
 	fileStore: {
 		persistTemplates: (templates) => {
 			ipcRenderer.send('saveTemplates', JSON.parse(templates))

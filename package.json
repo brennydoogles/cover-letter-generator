@@ -1,6 +1,6 @@
 {
 	"name": "cover-letter-generator",
-	"version": "0.9.0",
+	"version": "1.0.0",
 	"description": "An Electron App for quickly generating company-tailored cover letters from configurable templates",
 	"main": "./out/main/index.js",
 	"author": "Brendon Dugan",

@@ -50,14 +50,7 @@ app.whenReady().then(() => {
 		optimizer.watchWindowShortcuts(window)
 	})
 
-	// IPC test
-	ipcMain.on('ping', () => console.log('pong'))
-	ipcMain.on('testLog', (event, param) => {
-		console.log(param)
-	})
-	ipcMain.handle('testInvoke', async () => {
-		return 'Skibidi toilet'
-	})
+
 
 	let templates = {
 		example1: {
