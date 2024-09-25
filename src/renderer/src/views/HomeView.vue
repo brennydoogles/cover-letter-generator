@@ -4,7 +4,7 @@ import Mustache from 'mustache'
 import useTemplate from '../composables/useTemplate'
 import TemplateSelectorComponent from '../components/TemplateSelectorComponent.vue'
 import { useClipboard } from '@vueuse/core'
-import { Tooltip } from 'bootstrap'
+import { hideAllPoppers } from 'floating-vue'
 
 const companyName = ref('')
 const jobTitle = ref('')
@@ -35,20 +35,11 @@ const letterContent = computed(() => {
 	return Mustache.render(template, params)
 })
 
-const { copy, copied } = useClipboard()
-const tooltip = new Tooltip(document.body, {
-	selector: "[data-bs-toggle='tooltip']",
-	animation: true,
-	trigger: 'click'
-})
+const { copy } = useClipboard()
+
 const handleCopyButton = function () {
 	copy(letterContent.value)
-	if (copied) {
-		tooltip.show()
-		setTimeout(() => {
-			tooltip.blur()
-		}, 1500)
-	}
+	setTimeout(() => hideAllPoppers(), 2000)
 }
 </script>
 
@@ -113,16 +104,19 @@ const handleCopyButton = function () {
 					</div>
 					<div class="row">
 						<div class="col text-end">
-							<span data-bs-toggle="tooltip" title="Copied!" data-bs-placement="bottom">
-								<button
-									id="copy-button"
-									type="button"
-									class="btn btn-primary"
-									@click="handleCopyButton"
-								>
-									<i class="bi bi-clipboard"> Copy To Clipboard</i>
-								</button>
-							</span>
+							<button
+								id="copy-button"
+								v-tooltip="{
+									content: 'Copied!',
+									placement: 'left',
+									triggers: ['click']
+								}"
+								type="button"
+								class="btn btn-primary"
+								@click="handleCopyButton"
+							>
+								<i class="bi bi-clipboard"></i> Copy To Clipboard
+							</button>
 						</div>
 					</div>
 					<div class="row">
