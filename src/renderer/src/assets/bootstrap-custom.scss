@@ -6,7 +6,13 @@
 	@extend .mx-2;
 }
 
+.code {
+	white-space: preserve;
+}
+
 #letter-output {
+	height: 75vh;
+	overflow-y: auto;
 	div {
 		white-space: preserve;
 	}
@@ -24,13 +30,14 @@ h3 {
 .left-column {
 	@extend .col-4;
 	@extend .me-3;
-
+	max-height: 90vh;
 	border: $primary solid 1px;
 	border-radius: 15px;
 	overflow-y: auto;
 }
 .right-column {
 	@extend .col;
+	max-height: 90vh;
 	div.row {
 		@extend .pt-3;
 	}
@@ -40,9 +47,26 @@ h3 {
 	height: 75vh;
 }
 
+.templateVariableSidebarComponent {
+	@extend .mb-3;
+	@extend .mx-1;
+	border: $secondary solid 1px;
+	border-radius: 5px;
+	div {
+		@extend .mb-1;
+	}
+	h4 {
+		text-align: center;
+	}
+}
+
 .navbar-nav a {
 	font-weight: bold;
 	&.active {
 		color: white !important;
 	}
+}
+
+.btn-danger {
+	color: white !important;
 }
